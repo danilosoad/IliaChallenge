@@ -13,9 +13,12 @@ namespace ApiRestFul.Data.Configuration
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Email).HasMaxLength(100).IsRequired();
 
+
+            builder.HasOne(x => x.Partner).WithOne();
 
         }
     }

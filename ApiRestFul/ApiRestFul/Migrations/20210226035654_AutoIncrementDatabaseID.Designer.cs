@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiRestFul.Migrations
 {
     [DbContext(typeof(DataConext))]
-    [Migration("20210226024905_InitialDataBase")]
-    partial class InitialDataBase
+    [Migration("20210226035654_AutoIncrementDatabaseID")]
+    partial class AutoIncrementDatabaseID
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,10 +34,7 @@ namespace ApiRestFul.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdCustomer")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
@@ -71,9 +68,6 @@ namespace ApiRestFul.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("IdCostumer")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -84,7 +78,9 @@ namespace ApiRestFul.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PartnerId");
+                    b.HasIndex("PartnerId")
+                        .IsUnique()
+                        .HasFilter("[PartnerId] IS NOT NULL");
 
                     b.ToTable("Customers");
                 });
@@ -96,14 +92,11 @@ namespace ApiRestFul.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("CustomerPhone")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdCustomer")
-                        .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -119,7 +112,9 @@ namespace ApiRestFul.Migrations
                 {
                     b.HasOne("ApiRestFul.Domain.Entities.Customer", "Customer")
                         .WithMany("Address")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });
@@ -127,8 +122,8 @@ namespace ApiRestFul.Migrations
             modelBuilder.Entity("ApiRestFul.Domain.Entities.Customer", b =>
                 {
                     b.HasOne("ApiRestFul.Domain.Entities.Customer", "Partner")
-                        .WithMany()
-                        .HasForeignKey("PartnerId");
+                        .WithOne()
+                        .HasForeignKey("ApiRestFul.Domain.Entities.Customer", "PartnerId");
 
                     b.Navigation("Partner");
                 });
@@ -137,7 +132,9 @@ namespace ApiRestFul.Migrations
                 {
                     b.HasOne("ApiRestFul.Domain.Entities.Customer", "Customer")
                         .WithMany("Phone")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });

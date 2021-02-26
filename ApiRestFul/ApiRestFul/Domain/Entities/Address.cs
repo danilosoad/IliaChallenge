@@ -15,8 +15,8 @@ namespace ApiRestFul.Domain.Entities
         public string State { get; set; }
         public string Country { get; set; }
 
-        public int IdCustomer { get; set; }
-        
+        public int CustomerId { get; set; }
+
         public Customer Customer { get; set; }
     }
 }

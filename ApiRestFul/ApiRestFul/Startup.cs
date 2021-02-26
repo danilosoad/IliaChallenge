@@ -1,4 +1,6 @@
 using ApiRestFul.Data.DataContext;
+using ApiRestFul.Data.Repository;
+using ApiRestFul.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,8 +31,9 @@ namespace ApiRestFul
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataConext>(options => options.UseSqlServer(Configuration.GetConnectionString("app")));
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiRestFul", Version = "v1" });

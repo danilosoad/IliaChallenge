@@ -13,7 +13,8 @@ namespace ApiRestFul.Data.Configuration
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Customer).WithMany(x => x.Address).HasForeignKey(x => x.IdCustomer);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.HasOne(x => x.Customer).WithMany(x => x.Address).HasForeignKey(x => x.CustomerId);
         }
     }
 }

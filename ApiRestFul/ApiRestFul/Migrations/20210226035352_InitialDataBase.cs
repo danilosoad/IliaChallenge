@@ -14,7 +14,6 @@ namespace ApiRestFul.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IdCostumer = table.Column<int>(type: "int", nullable: false),
                     PartnerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -40,8 +39,7 @@ namespace ApiRestFul.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdCustomer = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,7 +49,7 @@ namespace ApiRestFul.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,8 +60,7 @@ namespace ApiRestFul.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    IdCustomer = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,7 +70,7 @@ namespace ApiRestFul.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -84,7 +81,9 @@ namespace ApiRestFul.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_PartnerId",
                 table: "Customers",
-                column: "PartnerId");
+                column: "PartnerId",
+                unique: true,
+                filter: "[PartnerId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Phones_CustomerId",

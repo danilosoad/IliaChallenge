@@ -9,7 +9,7 @@ namespace ApiRestFul.Domain.Entities
     {
         public string CustomerPhone { get; set; }
         public int Type { get; set; }
-        public int IdCustomer { get; set; }
+        public int CustomerId { get; set; }
         public Customer Customer { get; set; }
     }
 }
