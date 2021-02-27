@@ -34,13 +34,17 @@ namespace ApiRestFul.Data.Repository
 
         public void Delete(Customer customer)
         {
-            throw new NotImplementedException();
+            _context.Customers.Remove(customer);
         }
 
         public void Edit(Customer customer)
         {
-            throw new NotImplementedException();
+            _context.Customers.Update(customer);
         }
 
+        public Customer GetCostumerById(int id)
+        {
+            return _context.Customers.AsNoTracking().FirstOrDefault(x => x.Id.Equals(id));
+        }
     }
 }

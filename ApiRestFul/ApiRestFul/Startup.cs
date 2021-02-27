@@ -1,5 +1,8 @@
+using ApiRestFul.Application;
+using ApiRestFul.Application.Interfaces;
 using ApiRestFul.Data.DataContext;
 using ApiRestFul.Data.Repository;
+using ApiRestFul.Data.UnitOfWork;
 using ApiRestFul.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +35,8 @@ namespace ApiRestFul
         {
             services.AddDbContext<DataConext>(options => options.UseSqlServer(Configuration.GetConnectionString("app")));
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IUnityOfWork, UnityOfWork>();
+            services.AddScoped<IApiAppService, ApiAppService>();
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
