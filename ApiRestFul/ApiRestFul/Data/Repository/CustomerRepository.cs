@@ -24,7 +24,13 @@ namespace ApiRestFul.Data.Repository
 
         public IEnumerable<Customer> GetCustomers()
         {
-            return _context.Customers.Include(x => x.Phone).ToList();
+            var customers = _context.Customers
+                .Include(x => x.Phone)
+                .Include(x => x.Address)
+                .Include(x => x.Partner.Address)
+                .Include(x => x.Partner.Phone)
+                .ToList();
+            return customers;
         }
 
         public void Add(Customer customer)
@@ -44,7 +50,14 @@ namespace ApiRestFul.Data.Repository
 
         public Customer GetCostumerById(int id)
         {
-            return _context.Customers.AsNoTracking().FirstOrDefault(x => x.Id.Equals(id));
+            var customer = _context.Customers
+                .AsNoTracking()
+                .Include(x => x.Phone)
+                .Include(x => x.Address)
+                .Include(x => x.Partner)
+                .FirstOrDefault(x => x.Id.Equals(id));
+
+            return customer;
         }
     }
 }

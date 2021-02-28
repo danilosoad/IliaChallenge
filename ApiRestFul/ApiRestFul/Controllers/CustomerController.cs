@@ -45,13 +45,11 @@ namespace ApiRestFul.Controllers
             try
             {
                 _apiAppService.AddCustomer(customer);
-
                 return Ok();
             }
             catch (Exception e)
             {
                 _unityOfWork.RollBack();
-
                 return HttpStatusCode.InternalServerError;
             }
         }
@@ -66,7 +64,6 @@ namespace ApiRestFul.Controllers
             }
             catch (Exception e)
             {
-
                 return HttpStatusCode.InternalServerError;
             }
         }
@@ -85,6 +82,5 @@ namespace ApiRestFul.Controllers
                 return HttpStatusCode.InternalServerError;
             }
         }
-
     }
 }

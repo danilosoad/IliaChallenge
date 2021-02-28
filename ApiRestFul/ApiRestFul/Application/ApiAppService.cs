@@ -44,11 +44,6 @@ namespace ApiRestFul.Application
             return _customerRepo.GetCustomers();
         }
 
-        public dynamic GetCustomersByEmail(string email)
-        {
-            return _customerRepo.GetCostumerByEmail(email);
-        }
-
         public dynamic GetCustomersById(int id)
         {
             return _customerRepo.GetCostumerById(id);
@@ -58,7 +53,7 @@ namespace ApiRestFul.Application
         {
             var custumer = _customerRepo.GetCostumerById(customer.Id);
 
-            if(custumer != null)
+            if (custumer != null)
             {
                 _customerRepo.Edit(customer);
                 _unityOfWork.Commit();
@@ -69,5 +64,6 @@ namespace ApiRestFul.Application
             }
 
         }
+
     }
 }

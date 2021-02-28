@@ -8,7 +8,6 @@ namespace ApiRestFul.Domain.Interfaces
 {
     public interface ICustomerRepository
     {
-        Customer GetCostumerByEmail(string email);
         Customer GetCostumerById(int id);
         IEnumerable<Customer> GetCustomers();
         void Add(Customer customer);

@@ -9,7 +9,6 @@ namespace ApiRestFul.Application.Interfaces
     public interface IApiAppService
     {
         IEnumerable<Customer> GetCustomers();
-        dynamic GetCustomersByEmail(string email);
         dynamic GetCustomersById(int id);
         void AddCustomer(Customer customer);
         void UpdateCustomer(Customer customer);

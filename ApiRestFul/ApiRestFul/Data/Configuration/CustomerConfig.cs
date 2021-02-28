@@ -19,6 +19,7 @@ namespace ApiRestFul.Data.Configuration
 
 
             builder.HasOne(x => x.Partner).WithOne();
+            
 
         }
     }

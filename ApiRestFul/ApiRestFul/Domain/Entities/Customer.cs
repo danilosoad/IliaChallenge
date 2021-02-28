@@ -12,6 +12,7 @@ namespace ApiRestFul.Domain.Entities
         public string Email { get; set; }
         public virtual List<Phone> Phone { get; set; }
         public virtual List<Address> Address { get; set; }
+        //public int? PartnerId { get; set; }
         public Customer Partner { get; set; }
     }
 }
