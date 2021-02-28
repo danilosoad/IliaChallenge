@@ -49,7 +49,6 @@ namespace ApiRestFul.Controllers
             }
             catch (Exception e)
             {
-                _unityOfWork.RollBack();
                 return HttpStatusCode.InternalServerError;
             }
         }
